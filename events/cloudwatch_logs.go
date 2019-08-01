@@ -26,14 +26,15 @@ func (c CloudwatchLogsRawData) Parse() (d CloudwatchLogsData, err error) {
 	}
 
 	zr, err := gzip.NewReader(bytes.NewBuffer(data))
+	defer zr.Close()
 	if err != nil {
 		return
 	}
-	defer zr.Close()
 
-	dec := json.NewDecoder(zr)
-	err = dec.Decode(&d)
+	buf := &bytes.Buffer{}
+	buf.ReadFrom(zr)
 
+	err = json.Unmarshal(buf.Bytes(), &d)
 	return
 }
 

@@ -5,7 +5,7 @@ type LexEvent struct {
 	InvocationSource  string            `json:"invocationSource,omitempty"`
 	UserID            string            `json:"userId,omitempty"`
 	InputTranscript   string            `json:"inputTranscript,omitempty"`
-	SessionAttributes SessionAttributes `json:"sessionAttributes,omitempty"`
+	SessionAttributes map[string]string `json:"sessionAttributes,omitempty"`
 	RequestAttributes map[string]string `json:"requestAttributes,omitempty"`
 	Bot               *LexBot           `json:"bot,omitempty"`
 	OutputDialogMode  string            `json:"outputDialogMode,omitempty"`
@@ -41,14 +41,7 @@ type LexDialogAction struct {
 	ResponseCard     *LexResponseCard  `json:"responseCard,omitempty"`
 }
 
-type SessionAttributes map[string]string
-
 type Slots map[string]*string
-
-type LexResponse struct {
-	SessionAttributes SessionAttributes `json:"sessionAttributes,omitempty"`
-	DialogAction      LexDialogAction   `json:"dialogAction,omitempty"`
-}
 
 type LexResponseCard struct {
 	Version            int64        `json:"version,omitempty"`
